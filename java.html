@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>賃貸・購入比較</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <div class="headline0">
+          <div class="headline1">TK</div>
+          <div class="headline2">賃貸・購入比較</div>
+        </div>
+        <div class="headline3">
+          <div class="headline">ABOUT</div>
+          <div class="headline">SERVICE</div>
+          <div class="headline">CONTACT</div>
+        </div>
+     </header>
+    <main>
+<!-- お悩み紹介部分 -->
+        <div style="position: relative; overflow: hidden;">
+            <img src="./img/ヘッダー画像②.jpg" alt="ヘッダー画像" style="width: 100%; height: auto; object-fit: cover;margin-top: -250px;">
+            <div style="position: absolute; top: 30%; left: 50%; transform: translate(-50%, -50%);">
+            <p style="display: flex; justify-content: center; font-size: 1.5rem;">賃貸と購入どちらがいいか悩むことありませんか？</p>
+            <p style="display: flex; justify-content: center; font-size: 1.5rem;">賃貸だと値下がりの心配はしなくていい。</p>
+            <p style="display: flex; justify-content: center; font-size: 1.5rem;">でも購入だとローン返済後には、夢のマイホームが。</p>
+            <p style="display: flex; justify-content: center; font-size: 1.5rem;">どっちがいいんだろう？………</p>
+            </div>
+        </div>
+<!-- サービス説明部分 -->
+        <div style="margin: 100px;">
+            <h1 id="service"style="display:flex; justify-content: center;font-size: 1.5rem;">SERVICE</h1>
+            <p style="display:flex; justify-content: center;font-size: 1.5rem;">そんなお悩みはもう大丈夫！</p>
+            <p style="display:flex; justify-content: center;font-size: 1.5rem;">本サイトでは、あなたの「年齢」「性別」「家族の人数」から、</p>
+            <p style="display:flex; justify-content: center;font-size: 1.5rem;">最新のアルゴリズムを利用して賃貸か購入どちらがいいかを診断します。</p>
+            <p style="display:flex; justify-content: center;font-size: 1.5rem;">ご関心のある方は以下のフォームに必要事項を入力し、「診断」ボタンをクリック！</p>
+        </div>
+<!-- 画像 -->
+        <div>
+            <div style="display: flex; justify-content: space-around; position: relative;">
+                <img src="./img/アパート②.jpg" alt="アパート" style="width: 30%; height: auto; position: relative; z-index: 1;">
+                <img src="./img/悩む男性.jpg" alt="男性" style="width: 30%; height: auto; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: -1;">
+                <img src="./img/一軒家.jpg" alt="戸建" style="width: 30%; height: auto; position: relative; z-index: 1;">
+            </div>
+        </div>
+<!--  居住地選択部分-->
+        <div class="outline" style="margin-top: 5%;">
+            <p style="font-size: 1.5rem;margin-bottom: 2%;">さあ、まずはあなたがどこに住むべきかを運に委ねましょう！！！</p>
+            <div class="roulette" id="roulette" style="">東京</div>
+            <br />
+            <input type="button" value="スタート" id="start" onclick="start();"/>
+            <input type="button" value="ストップ" id="stop" onclick="stop();"/>
+        </div>
+<!-- フォーム入力部分 -->
+        <form onsubmit="return getDataFromForm()">
+            <p style="display: flex; justify-content: center;font-size: 1.5rem;margin-top: 2%">住む場所が決まれば後はあなたのことを教えて下さい😄</p>
+            <div style="display: flex; justify-content: center;font-size: 1.5rem;margin-top: 2%">
+                <p >年齢:</p>
+                <div>
+                    <input type="number" name="age" pattern="\d*" inputmode="numeric" min="0" >
+                </div>
+            </div>
+            <div style="display: flex; justify-content: center;font-size: 1.5rem;margin-top: 1%;">
+                <span>性別:</span>
+                <div>
+                    <input type="radio" id="option1" name="gender" value="男性">
+                    <label for="option1">男性</label>
+                    <input type="radio" id="option2" name="gender" value="女性">
+                    <label for="option2">女性</label>
+                </div>
+            </div>
+            <div style="display: flex; justify-content: center;font-size: 1.5rem;margin-top: 1%;">
+                <span>家族人数:</span>
+                <input type="number" name="family" pattern="\d*" inputmode="numeric" min="1" max="10">
+            </div>
+            <div style="display: flex;justify-content: center;margin-top: 1%;">
+                <button type="submit" style="font-size: 1.5rem;">送信</button>
+            </div>
+        </form>
+<!-- 規約部分 -->
+        <div style="display: flex;justify-content: center;">
+            <p style="margin-right: 1%;">プライバシーポリシー</p>
+            <p style="margin-left: 1%;">利用規約</p>
+        </div>
+<!-- モーダルウインドウ部分 -->
+        <div id="myModal" class="modal">
+            <div class="modal-content" style="font-size: 1.5rem;">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <!-- <div id="remaining-years"></div> -->
+                <div id=this style="height: 100%;display: flex;flex-direction: column;justify-content: center;align-items: center;">
+                    <div id="residence" style="margin: 2%;"></div>
+                    <div id="floor-area" style="margin: 2%;"></div>
+                    <!-- <div id="rent"></div> -->
+                    <div id="lifetimeRent" style="margin: 2%;"></div>
+                    <div id="purchase" style="margin: 2%;"></div>
+                    <div id="result" style="margin: 2%;"></div>
+                </div>
+            </div>
+        </div>
+ <!-- コンタクト部分 -->
+        <div>
+            <div id="contact">CONTACT</div>
+
+
+        </div>
+        
+    
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="java.js"></script>
+</body>
+</html>
